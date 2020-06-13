@@ -1,0 +1,43 @@
+<html>
+<head>
+</head>
+<body>
+<script>
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+function spiralRound(n) {
+
+    //создаем и заполняем многомерныймассив
+    var entryArray = Array(2*n-1).fill(0).map(x => Array(2*n-1).fill(0).map(x => getRandomInt(1000)));
+
+    //зеркалим
+    var exitArray = [];
+    entryArray.reverse();
+
+    //Повторяем действие пока entryArray не останентся пустым
+    while (entryArray.length) {
+        //Добавление в exitArray первого вложенного массива из entryArray.
+        //shift() возвращает первый вложенный массив и удаляет его из entryArray.
+        exitArray.push(...entryArray.shift());
+
+        //Добавляем в exitArray каждый последний элемент из каждого оставщегося массива в entryArray.
+        //pop() возвращает последний элемент массива и удаляет его из исходного
+        entryArray.map(row => exitArray.push(row.pop()));
+
+        //зеркалируем массивы по вертикали и горизонтали
+        entryArray.reverse().map(row => row.reverse());
+    }
+    //Возвращаем результат , зеркалим
+    return exitArray.reverse();
+}
+
+
+
+
+console.log("2n-1x2n-1:" + spiralRound(2)); // здесь можно установить значение
+
+</script>
+</body>
+</html>
